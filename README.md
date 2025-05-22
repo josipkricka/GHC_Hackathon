@@ -27,7 +27,7 @@ This hackathon is split into **multiple challenges**. The more you do, the more 
 
 ### 🧩 First Challenge: E-R Diagram & Database Creation
 
-*  Download the CSV with users & transactions
+*  Go in the data folder and download the CSV with users & transactions
 *  Analyze the data and draw an E-R Diagram
 *  Create the database and tables using GitHub Copilot
 *  Populate the tables with the CSV data
