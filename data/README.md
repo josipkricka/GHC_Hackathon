@@ -2,7 +2,7 @@
 
 This dataset is provided for participants in the Nexi Hackathon to complete the development and testing of expense-tracking applications.
 
-<img src="./map.png" alt="Italian map" width="200">
+<img src="./images/map.png" alt="Italian map" width="200">
 
 
 ## 📁 File
@@ -54,4 +54,4 @@ This dataset contains anonymized credit card transaction records from **2019 to 
 
 Here’s a preview of the first five rows of the dataset:
 
-![DataFrame Head](./head.png)
+![DataFrame Head](./images/head.png)
