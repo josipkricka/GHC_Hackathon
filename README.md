@@ -22,7 +22,7 @@ This is your central guide to what we're building, how the day will go, and what
 ## ✅ To-Do List – The Challenge
 
 This hackathon is split into **multiple challenges**. The more you do, the more awesome your final result! ✨
-
+**Before delving into the code, check the tech_requirements folder to see if you have everything installed**
 ---
 
 ### 🧩 First Challenge: E-R Diagram & Database Creation
