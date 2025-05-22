@@ -1,82 +1,90 @@
-
 # 💻 Microsoft x Hackathon – Challenge Overview
 
-Welcome to the Microsoft House in Milan! 
+Welcome to the Microsoft House in Milan!  
 This is your central guide to what we're building, how the day will go, and what each challenge is about.
 
 ---
 
 ## 📅 Agenda
 
-| 🕘 Time         | 🗓️ Activity                                                 |
-| --------------- | ------------------------------------------------------------ |
-| 9:00 – 9:15 AM  | 👋 Welcome + Agenda Overview + Rules & Challenge Explanation |
-| 9:15 – 12:00 PM | 🧠 Hackathon Morning Session                                 |
-| 12:00 – 1:00 PM | 🍝 Lunch Break (Feltrinelli)                                 |
-| 1:00 – 3:00 PM  | 💻 Hackathon Afternoon Session                               |
-| 3:00 – 4:30 PM  | 🗣️ Team Presentations + 🏆 Winner Announcement              |
-| 4:30 – 5:00 PM  |  👋 Closing Remarks                  |
+| 🕘 Time         | 🗓️ Activity                                                  |
+| --------------- | ------------------------------------------------------------- |
+| 9:00 – 9:20 AM  | 👋 Welcome and overview of the day's schedule<br/>📌 Description of the challenge<br/>📜 Explanation of rules and guidelines<br/>💡 Tips and tricks |
+| 9:20 – 12:00 PM | 🧠 Hackathon Morning Session                                  |
+| 12:00 – 1:00 PM | 🍝 Lunch Break (Feltrinelli)                                  |
+| 1:00 – 3:15 PM  | 💻 Hackathon Afternoon Session                                |
+| 3:15 – 4:00 PM  | 🗣️ Team Presentations                                         |
+| 4:00 – 4:30 PM  | 🏆 Announcement of Winners                                     |
+| 4:30 – 5:00 PM  | 👋 Closing Remarks                                            |
 
 ---
 
-## ✅ To-Do List – The Challenge
+## ✅ Challenge Overview
 
-This hackathon is split into **multiple challenges**. The more you do, the more awesome your final result! ✨
-
-*Before delving into the code, check the tech_requirements folder to see if you have everything installed*
----
-
-### 🧩 First Challenge: E-R Diagram & Database Creation
-
-*  Go in the data folder and download the CSV with users & transactions
-*  Analyze the data and draw an E-R Diagram
-*  Create the database and tables using GitHub Copilot
-*  Populate the tables with the CSV data
+The hackathon consists of multiple progressive challenges.  
+Tackle as many as you can — the more you build, the better your final solution!
 
 ---
 
-### 🔁 Second Challenge: Back-End API (CRUD)
+### 🧩 First Challenge: E-R diagram and database creation
 
-*  Develop a REST API for CRUD operations
-*  Connect it to your database
 
----
-
-### 🖥️ Third Challenge: Front-End Interface
-
-*  Pick a user from your database
-*  Build a web app (React, Angular, etc.) to display their transactions
-*  Implement Add / Update / Delete features
-*  Ensure your UI is responsive
+-  **Download CSV file** inside the data folder, with users’ data and transactions.
+-  **Analyze data** and draw an **E-R Diagram**.
+-  **Create database and tables** from the E-R Diagram using GitHub Copilot and populate it with CSV data.
 
 ---
 
-##  Optional Challenges (If You Have Time!)
+### 🔁 Second Challenge: back-end API layer for CRUD service
 
-### 📊 Fourth Challenge: Dashboard with Charts
 
-*  Add a Dashboard page with visual charts (pie chart by category, bar chart by month)
-*  Include a date filter (default: last 12 months)
+-  Develop a back-end API layer exposing CRUD (Create, Retrieve, Update, Delete) service to interact with the database previously created.
 
 ---
 
-### 🧠 Fifth Challenge: Advanced Analytics
+### 🖥️ Third Challenge: Front End implementation
 
-*  Group users by similarity (location, age, gender, job...)
-*  Create user spending profiles
-*  Show a comparison: you vs. similar users per category
+
+
+-  Choose a single user on your DB.
+-  Build a web application (e.g., React, Angular, etc.) that shows the **transactions table** of that user.
+-  Implement the capability to **add**, **update**, or **delete** transactions.
+-  Ensure the app follows **responsive design** principles.
+
+---
+
+## ⚡ Optional Challenges (Bonus Level)
+
+### 📊 Fourth Challenge: Charts dashboard view
+
+
+-  Create a new “Dashboard” page in the web application.
+-  Display charts (e.g., pie chart by category, bar chart for monthly expenses).
+-  Include a **filter** to modify the analysis period (default: last 12 months, but allow date range adjustments).
+
+---
+
+### 🧠 Fifth Challenge: Advanced Analytics panel
+
+
+-  Analyze all users’ data to **identify profiles** by similarities (city, region, age, job, gender...).
+-  Calculate and compare **average expenses per category** for these profiles.
+-  Create “personas” for cost optimization suggestions based on similar users.
+-  Add an “Advanced Analytics” page showing **comparisons between your expenses and similar users' averages**.
 
 ---
 
 ### 🛡️ Sixth Challenge: Project Hardening
 
-*  Add unit tests to validate your implementation
-*  Add a login page so users can authenticate and view their own transactions
+#### 6.1 Sub-challenges
+
+-  Create a **unit test suite** to validate the implementation.
+-  Create a **simple login page** where users can authenticate and view or update their own transactions.
 
 ---
 
-## 🆘 Need Help? Just Raise Your Hand 
+## 🆘 Need Help?
 
-We’re here for you!
-The **Microsoft team** is around — if you get stuck, raise your hand and we’ll come support you.
-
+The **Microsoft team is here to support you**!  
+If you're stuck or have questions, just raise your hand and someone will assist you.
+Happy hacking! 🚀
