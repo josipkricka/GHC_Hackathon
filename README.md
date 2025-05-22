@@ -23,11 +23,11 @@ This is your central guide to what we're building, how the day will go, and what
 
 The hackathon consists of multiple progressive challenges.  
 Tackle as many as you can — the more you build, the better your final solution!
+Be sure to check the tech_requirements folder to see if you are ready to start the challenge!
 
 ---
 
 ### 🧩 First Challenge: E-R diagram and database creation
-
 
 -  **Download CSV file** inside the data folder, with users’ data and transactions.
 -  **Analyze data** and draw an **E-R Diagram**.
@@ -37,14 +37,11 @@ Tackle as many as you can — the more you build, the better your final solution
 
 ### 🔁 Second Challenge: back-end API layer for CRUD service
 
-
 -  Develop a back-end API layer exposing CRUD (Create, Retrieve, Update, Delete) service to interact with the database previously created.
 
 ---
 
 ### 🖥️ Third Challenge: Front End implementation
-
-
 
 -  Choose a single user on your DB.
 -  Build a web application (e.g., React, Angular, etc.) that shows the **transactions table** of that user.
@@ -57,7 +54,6 @@ Tackle as many as you can — the more you build, the better your final solution
 
 ### 📊 Fourth Challenge: Charts dashboard view
 
-
 -  Create a new “Dashboard” page in the web application.
 -  Display charts (e.g., pie chart by category, bar chart for monthly expenses).
 -  Include a **filter** to modify the analysis period (default: last 12 months, but allow date range adjustments).
@@ -65,7 +61,6 @@ Tackle as many as you can — the more you build, the better your final solution
 ---
 
 ### 🧠 Fifth Challenge: Advanced Analytics panel
-
 
 -  Analyze all users’ data to **identify profiles** by similarities (city, region, age, job, gender...).
 -  Calculate and compare **average expenses per category** for these profiles.
@@ -75,8 +70,6 @@ Tackle as many as you can — the more you build, the better your final solution
 ---
 
 ### 🛡️ Sixth Challenge: Project Hardening
-
-#### 6.1 Sub-challenges
 
 -  Create a **unit test suite** to validate the implementation.
 -  Create a **simple login page** where users can authenticate and view or update their own transactions.
