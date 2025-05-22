@@ -50,7 +50,7 @@ Be sure to check the tech_requirements folder to see if you are ready to start t
 
 ---
 
-## ⚡ Optional Challenges (Bonus Level)
+## ⚡ Optional Challenges:
 
 ### 📊 Fourth Challenge: Charts dashboard view
 
