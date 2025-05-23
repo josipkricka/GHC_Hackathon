@@ -1,4 +1,4 @@
-# 💻 Microsoft x Hackathon – Challenge Overview
+# 💻 Microsoft x Nexi Hackathon – Challenge Overview
 
 Welcome to the Microsoft House in Milan!  
 This is your central guide to what we're building, how the day will go, and what each challenge is about.
