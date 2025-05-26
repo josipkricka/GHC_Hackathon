@@ -50,19 +50,10 @@ git --version
 
 ### 5. 🗃️ Set Up a Local Database
 
-Choose one of the following database systems (or use your preferred one):
+For example:
+Microsoft SQL Server Developer 
+MySQL with  MySQL workbench (UI to access your data)
 
-####  Microsoft SQL Server Developer Edition
-
-🔗 [Download SQL Server Developer](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
-
-#### MySQL Workbench
-
-🔗 [Download MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
-
-> Make sure the database server is running locally and accessible.
-
----
 
 ### 6. 🤝 Team Collaboration (Optional but Recommended)
 
