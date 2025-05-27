@@ -9,7 +9,7 @@ namespace my_api_project.Data
 
         public DbSet<CardHolder> CardHolders { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<TransJobType> TransJobTypes { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -18,10 +18,10 @@ namespace my_api_project.Data
                 .WithOne(t => t.CardHolder)
                 .HasForeignKey(t => t.CardHolderId);
 
-            modelBuilder.Entity<TransJobType>()
-                .HasMany(j => j.Transactions)
-                .WithOne(t => t.TransJobType)
-                .HasForeignKey(t => t.TransJobTypeId);
+            modelBuilder.Entity<Transaction>()
+                .HasOne(t => t.Category)
+                .WithMany(c => c.Transactions)
+                .HasForeignKey(t => t.CategoryId);
         }
     }
-} 	
+}
