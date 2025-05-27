@@ -89,7 +89,8 @@
     <div class="empty-state" in:fade>
       <p>No transactions found</p>
     </div>
-  {:else}    <div class="card-grid">
+  {:else}
+    <div class="card-grid">
       {#each filteredTransactions as transaction (transaction.trans_num)}        <div class="card" 
           in:slide={{ duration: 300 }}
           style="border-left: 4px solid {getCategoryColor(transaction.category)}">
@@ -97,7 +98,7 @@
           <div class="card-content">
             <div class="card-header">
               <div class="category-amount">
-                <div class="category" style="color: {getCategoryColor(transaction.category)};">{transaction.category}</div>
+                <div class="category">{transaction.category}</div>
                 <div class="amount">{formatAmount(transaction.amount)}</div>
               </div>
               

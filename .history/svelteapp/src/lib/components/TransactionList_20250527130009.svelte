@@ -89,7 +89,8 @@
     <div class="empty-state" in:fade>
       <p>No transactions found</p>
     </div>
-  {:else}    <div class="card-grid">
+  {:else}
+    <div class="card-grid">
       {#each filteredTransactions as transaction (transaction.trans_num)}        <div class="card" 
           in:slide={{ duration: 300 }}
           style="border-left: 4px solid {getCategoryColor(transaction.category)}">
@@ -97,7 +98,7 @@
           <div class="card-content">
             <div class="card-header">
               <div class="category-amount">
-                <div class="category" style="color: {getCategoryColor(transaction.category)};">{transaction.category}</div>
+                <div class="category">{transaction.category}</div>
                 <div class="amount">{formatAmount(transaction.amount)}</div>
               </div>
               
@@ -152,7 +153,8 @@
     flex: 1;
     max-width: 500px;
   }
-    .search-input {
+  
+  .search-input {
     width: 100%;
     padding: 0.75rem 1rem;
     border: 1px solid #ddd;
@@ -160,8 +162,6 @@
     font-size: 1rem;
     transition: all 0.2s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    font-weight: 300;
-    letter-spacing: 0.3px;
   }
   
   .search-input:focus {
@@ -190,64 +190,46 @@
     transform: translateY(-4px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
-    .card-content {
-    display: flex;
-    flex-direction: column;
-  }
   
   .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     padding: 1rem 1.25rem;
     background-color: #f9f9f9;
-    flex-wrap: wrap;
-    gap: 0.5rem;
   }
   
-  .category-amount {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-    .category {
+  .category {
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-transform: capitalize;
-    letter-spacing: 0.5px;
   }
   
   .amount {
     font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: -0.5px;
+    font-size: 1.1rem;
   }
   
   .card-body {
     padding: 1rem 1.25rem;
+  }
+  
+  .transaction-info {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-    .transaction-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    margin-bottom: 0.75rem;
     font-size: 0.875rem;
     color: #666;
-    text-align: right;
-    font-weight: 300;
   }
-    .customer-info {
-    margin-right: auto;
+  
+  .customer-info {
+    margin-top: 0.75rem;
   }
-    .customer-name {
+  
+  .customer-name {
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 0.25rem;
-    letter-spacing: -0.5px;
   }
   
   .customer-details {
@@ -256,7 +238,6 @@
     gap: 0.5rem;
     font-size: 0.875rem;
     color: #666;
-    font-weight: 300;
   }
   
   .city:after {
@@ -266,12 +247,14 @@
   
   .card-actions {
     display: flex;
-    gap: 0.5rem;
+    border-top: 1px solid #eee;
   }
-    .card-actions button {
-    padding: 0.5rem 0.75rem;
+  
+  .card-actions button {
+    flex: 1;
+    padding: 0.75rem;
     border: none;
-    border-radius: 0.25rem;
+    background: none;
     cursor: pointer;
     font-size: 0.875rem;
     font-weight: 500;
@@ -279,33 +262,24 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    transition: all 0.2s ease;
-    letter-spacing: 0.5px;
-  }
-    .edit-btn {
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5rem 0.75rem;
-    cursor: pointer;
+    transition: background-color 0.2s ease;
   }
   
-  .delete-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5rem 0.75rem;
-    cursor: pointer;
+  .edit-btn {
+    color: #2196F3;
   }
   
   .edit-btn:hover {
-    background-color: #0b7dda;
+    background-color: rgba(33, 150, 243, 0.1);
+  }
+  
+  .delete-btn {
+    color: #f44336;
+    border-left: 1px solid #eee;
   }
   
   .delete-btn:hover {
-    background-color: #d32f2f;
+    background-color: rgba(244, 67, 54, 0.1);
   }
   
   .empty-state {

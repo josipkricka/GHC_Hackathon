@@ -89,52 +89,50 @@
     <div class="empty-state" in:fade>
       <p>No transactions found</p>
     </div>
-  {:else}    <div class="card-grid">
-      {#each filteredTransactions as transaction (transaction.trans_num)}        <div class="card" 
+  {:else}
+    <div class="card-grid">
+      {#each filteredTransactions as transaction (transaction.trans_num)}
+        <div class="card" 
           in:slide={{ duration: 300 }}
           style="border-left: 4px solid {getCategoryColor(transaction.category)}">
           
-          <div class="card-content">
-            <div class="card-header">
-              <div class="category-amount">
-                <div class="category" style="color: {getCategoryColor(transaction.category)};">{transaction.category}</div>
-                <div class="amount">{formatAmount(transaction.amount)}</div>
-              </div>
-              
-              <div class="transaction-info">
-                <div class="date-time">{formatDate(transaction.trans_date, transaction.trans_time)}</div>
-                <div class="trans-id">#{transaction.trans_num}</div>
-              </div>
+          <div class="card-header">
+            <div class="category">{transaction.category}</div>
+            <div class="amount">{formatAmount(transaction.amount)}</div>
+          </div>
+          
+          <div class="card-body">
+            <div class="transaction-info">
+              <div class="date-time">{formatDate(transaction.trans_date, transaction.trans_time)}</div>
+              <div class="trans-id">#{transaction.trans_num}</div>
             </div>
             
-            <div class="card-body">
-              <div class="customer-info">
-                <div class="customer-name">{transaction.first} {transaction.last}</div>
-                <div class="customer-details">
-                  <span class="city">{transaction.city}</span>
-                  <span class="job">{transaction.job}</span>
-                </div>
-              </div>
-              
-              <div class="card-actions">
-                <button class="edit-btn" on:click={() => handleEdit(transaction)}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                  </svg>
-                  Edit
-                </button>
-                <button class="delete-btn" on:click={() => handleDelete(transaction.trans_num)}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                  </svg>
-                  Delete
-                </button>
+            <div class="customer-info">
+              <div class="customer-name">{transaction.first} {transaction.last}</div>
+              <div class="customer-details">
+                <span class="city">{transaction.city}</span>
+                <span class="job">{transaction.job}</span>
               </div>
             </div>
+          </div>
+          
+          <div class="card-actions">
+            <button class="edit-btn" on:click={() => handleEdit(transaction)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+              Edit
+            </button>
+            <button class="delete-btn" on:click={() => handleDelete(transaction.trans_num)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+              Delete
+            </button>
           </div>
         </div>
       {/each}
@@ -152,7 +150,8 @@
     flex: 1;
     max-width: 500px;
   }
-    .search-input {
+  
+  .search-input {
     width: 100%;
     padding: 0.75rem 1rem;
     border: 1px solid #ddd;
@@ -160,8 +159,6 @@
     font-size: 1rem;
     transition: all 0.2s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    font-weight: 300;
-    letter-spacing: 0.3px;
   }
   
   .search-input:focus {
@@ -169,12 +166,11 @@
     outline: none;
     box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
   }
-    .card-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-width: 800px;
-    margin: 0 auto;
+  
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
   }
   
   .card {
@@ -183,71 +179,52 @@
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    width: 100%;
   }
   
   .card:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
-    .card-content {
-    display: flex;
-    flex-direction: column;
-  }
   
   .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     padding: 1rem 1.25rem;
     background-color: #f9f9f9;
-    flex-wrap: wrap;
-    gap: 0.5rem;
   }
   
-  .category-amount {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-    .category {
+  .category {
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-transform: capitalize;
-    letter-spacing: 0.5px;
   }
   
   .amount {
     font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: -0.5px;
+    font-size: 1.1rem;
   }
   
   .card-body {
     padding: 1rem 1.25rem;
+  }
+  
+  .transaction-info {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-    .transaction-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    margin-bottom: 0.75rem;
     font-size: 0.875rem;
     color: #666;
-    text-align: right;
-    font-weight: 300;
   }
-    .customer-info {
-    margin-right: auto;
+  
+  .customer-info {
+    margin-top: 0.75rem;
   }
-    .customer-name {
+  
+  .customer-name {
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 0.25rem;
-    letter-spacing: -0.5px;
   }
   
   .customer-details {
@@ -256,7 +233,6 @@
     gap: 0.5rem;
     font-size: 0.875rem;
     color: #666;
-    font-weight: 300;
   }
   
   .city:after {
@@ -266,12 +242,14 @@
   
   .card-actions {
     display: flex;
-    gap: 0.5rem;
+    border-top: 1px solid #eee;
   }
-    .card-actions button {
-    padding: 0.5rem 0.75rem;
+  
+  .card-actions button {
+    flex: 1;
+    padding: 0.75rem;
     border: none;
-    border-radius: 0.25rem;
+    background: none;
     cursor: pointer;
     font-size: 0.875rem;
     font-weight: 500;
@@ -279,33 +257,24 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    transition: all 0.2s ease;
-    letter-spacing: 0.5px;
-  }
-    .edit-btn {
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5rem 0.75rem;
-    cursor: pointer;
+    transition: background-color 0.2s ease;
   }
   
-  .delete-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5rem 0.75rem;
-    cursor: pointer;
+  .edit-btn {
+    color: #2196F3;
   }
   
   .edit-btn:hover {
-    background-color: #0b7dda;
+    background-color: rgba(33, 150, 243, 0.1);
+  }
+  
+  .delete-btn {
+    color: #f44336;
+    border-left: 1px solid #eee;
   }
   
   .delete-btn:hover {
-    background-color: #d32f2f;
+    background-color: rgba(244, 67, 54, 0.1);
   }
   
   .empty-state {

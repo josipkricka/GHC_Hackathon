@@ -89,7 +89,8 @@
     <div class="empty-state" in:fade>
       <p>No transactions found</p>
     </div>
-  {:else}    <div class="card-grid">
+  {:else}
+    <div class="card-grid">
       {#each filteredTransactions as transaction (transaction.trans_num)}        <div class="card" 
           in:slide={{ duration: 300 }}
           style="border-left: 4px solid {getCategoryColor(transaction.category)}">
@@ -97,7 +98,7 @@
           <div class="card-content">
             <div class="card-header">
               <div class="category-amount">
-                <div class="category" style="color: {getCategoryColor(transaction.category)};">{transaction.category}</div>
+                <div class="category">{transaction.category}</div>
                 <div class="amount">{formatAmount(transaction.amount)}</div>
               </div>
               
@@ -152,7 +153,8 @@
     flex: 1;
     max-width: 500px;
   }
-    .search-input {
+  
+  .search-input {
     width: 100%;
     padding: 0.75rem 1rem;
     border: 1px solid #ddd;
@@ -160,8 +162,6 @@
     font-size: 1rem;
     transition: all 0.2s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    font-weight: 300;
-    letter-spacing: 0.3px;
   }
   
   .search-input:focus {
