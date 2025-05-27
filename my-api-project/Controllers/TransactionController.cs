@@ -30,7 +30,7 @@ namespace my_api_project.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Transaction>> GetTransaction(int id)
         {
-            var transaction = await _context.Transactions.FindAsync(id);
+            var transaction = await _context.Transactions.FirstOrDefaultAsync(t => t.TransactionId == id);
 
             if (transaction == null)
             {

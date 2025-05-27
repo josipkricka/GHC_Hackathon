@@ -18,6 +18,7 @@ namespace my_api_project.Models
 
         [System.ComponentModel.DataAnnotations.Schema.Column("category_id")]
         public string CategoryId { get; set; }
+        
         public Category Category { get; set; }
 
         // Foreign keys
