@@ -60,20 +60,16 @@
     padding: 1rem;
   }
 
-  h1.page-title {
+  h1 {
     color: #333;
     margin-bottom: 1.5rem;
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-weight: 700;
-    font-size: 2.2rem;
-    letter-spacing: -0.03em;
   }
 
   .header-actions {
     margin-bottom: 1rem;
   }
 
-  button.add-button {
+  button {
     background-color: #4CAF50;
     color: white;
     padding: 0.5rem 1rem;
@@ -81,18 +77,10 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-weight: 600;
-    transition: background-color 0.2s ease, transform 0.1s ease;
   }
 
-  button.add-button:hover {
+  button:hover {
     background-color: #45a049;
-    transform: translateY(-2px);
-  }
-  
-  button.add-button:active {
-    transform: translateY(0);
   }
 
   main {

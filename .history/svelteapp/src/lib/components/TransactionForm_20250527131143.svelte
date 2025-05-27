@@ -177,10 +177,11 @@
     margin-bottom: 1rem;
   }
   
-  h2 {    margin-top: 0;
+  h2 {
+    margin-top: 0;
     margin-bottom: 1.5rem;
     color: #333;
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-heading);
     font-weight: 600;
     letter-spacing: -0.02em;
   }
@@ -195,24 +196,27 @@
     gap: 1rem;
     margin-bottom: 1rem;
   }
-    label {
+  
+  label {
     display: block;
-    margin-bottom: 0.5rem;    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
     color: #555;
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
-    input, select {    width: 100%;
+    input, select {
+    width: 100%;
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-body);
     font-weight: 300;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   
-  input:focus, select:focus {    outline: none;
-    border-color: #2196F3;
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--secondary-color);
     box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
   }
   
@@ -222,26 +226,28 @@
     gap: 1rem;
     margin-top: 1.5rem;
   }
-    .cancel-btn {    background-color: #ccc;
+    .cancel-btn {
+    background-color: #ccc;
     color: #333;
     border: none;
     padding: 0.5rem 1.5rem;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-heading);
     font-weight: 500;
     transition: all 0.2s ease;
   }
   
-  .save-btn {    background-color: #4CAF50;
+  .save-btn {
+    background-color: #4CAF50;
     color: white;
     border: none;
     padding: 0.5rem 1.5rem;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-heading);
     font-weight: 500;
     transition: all 0.2s ease;
   }

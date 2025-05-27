@@ -63,7 +63,7 @@
   h1.page-title {
     color: #333;
     margin-bottom: 1.5rem;
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-heading);
     font-weight: 700;
     font-size: 2.2rem;
     letter-spacing: -0.03em;
@@ -81,7 +81,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-heading);
     font-weight: 600;
     transition: background-color 0.2s ease, transform 0.1s ease;
   }

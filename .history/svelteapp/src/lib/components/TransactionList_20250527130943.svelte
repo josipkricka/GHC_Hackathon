@@ -209,8 +209,9 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-  }  .category {
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .category {
+    font-family: var(--font-heading);
     font-weight: 600;
     font-size: 1.1rem;
     text-transform: capitalize;
@@ -242,8 +243,8 @@
   }
     .customer-info {
     margin-right: auto;
-  }  .customer-name {
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+    .customer-name {
     font-weight: 600;
     font-size: 1.2rem;
     margin-bottom: 0.25rem;
