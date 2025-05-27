@@ -1,6 +1,5 @@
-To load DDL please execute:
-
-```
-gunzip data.sql.gz
-mysql -u <user> -p genai < data.sql
-```
+- download mysql server here => https://dev.mysql.com/downloads/file/?id=539751
+- extract it, then in the bin directory execute: `mysqld --initialize --console`
+- to start the database run `mysqld.exe`
+- create database `genai` (start `mysql.exe -u root -p` then write `create database genai;`)
+- to load the data run: `mysql -u root -p genai < data.sql`

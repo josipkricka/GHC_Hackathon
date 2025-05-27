@@ -1,7 +1,8 @@
 import csv
+import hashlib
 import mysql.connector
 from mysql.connector import errorcode
-import os
+from datetime import datetime
 
 DB_CONFIG = {
     'user': 'root',
@@ -11,111 +12,113 @@ DB_CONFIG = {
     'autocommit': False
 }
 
-DDL_FILE = 'ddl.sql'
-CSV_FILE = os.path.join('data', 'italian_credit_card_transactions.csv')
+CSV_FILE = 'data/italian_credit_card_transactions.csv'
 BATCH_SIZE = 1000
 
-def run_ddl(cursor):
-    with open(DDL_FILE, 'r') as f:
+# Connect to MySQL and create schema if not exists
+def create_schema():
+    cnx = mysql.connector.connect(user=DB_CONFIG['user'], password=DB_CONFIG['password'], host=DB_CONFIG['host'])
+    cursor = cnx.cursor()
+    with open('ddl.sql', 'r') as f:
         ddl = f.read()
-    for stmt in ddl.split(';'):
-        stmt = stmt.strip()
-        if stmt:
-            cursor.execute(stmt)
+        for stmt in ddl.split(';'):
+            if stmt.strip():
+                cursor.execute(stmt)
+    cnx.commit()
+    cursor.close()
+    cnx.close()
+
+def hash_password(login_name):
+    return hashlib.sha256(login_name.encode('utf-8')).hexdigest()
 
 def main():
-    conn = mysql.connector.connect(user=DB_CONFIG['user'], password=DB_CONFIG['password'], host=DB_CONFIG['host'])
-    cursor = conn.cursor()
-    # Create schema and tables if not exist
-    run_ddl(cursor)
-    conn.database = DB_CONFIG['database']
+    create_schema()
+    cnx = mysql.connector.connect(**DB_CONFIG)
+    cursor = cnx.cursor()
 
-    # Prepare caches
-    job_cache = {}
-    category_cache = {}
-    user_cache = {}
+    jobs = {}
+    categories = {}
+    users = {}
+    job_id = 1
+    category_id = 1
+    user_id = 1
 
-    # Preload existing jobs and categories
-    cursor.execute('SELECT job_id, job_name FROM job')
-    for job_id, job_name in cursor.fetchall():
-        job_cache[job_name] = job_id
-    cursor.execute('SELECT category_id, category_name FROM category')
-    for cat_id, cat_name in cursor.fetchall():
-        category_cache[cat_name] = cat_id
-    cursor.execute('SELECT user_id, first, last, dob FROM user')
-    for user_id, first, last, dob in cursor.fetchall():
-        user_cache[(first, last, str(dob))] = user_id
-
+    # First pass: collect unique jobs, categories, users
     with open(CSV_FILE, newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)
-        jobs_to_insert = []
-        cats_to_insert = []
-        users_to_insert = []
-        trans_to_insert = []
-        total = sum(1 for _ in open(CSV_FILE, encoding='utf-8')) - 1
-        csvfile.seek(0)
-        next(reader)  # skip header
-        count = 0
         for row in reader:
-            # Job
-            job_name = row['job']
-            if job_name not in job_cache:
-                jobs_to_insert.append((job_name,))
-                job_cache[job_name] = None
-            # Category
-            cat_name = row['category']
-            if cat_name not in category_cache:
-                cats_to_insert.append((cat_name,))
-                category_cache[cat_name] = None
-            # User
-            user_key = (row['first'], row['last'], row['dob'])
-            if user_key not in user_cache:
-                users_to_insert.append((row['first'], row['last'], row['gender'], row['dob'], row['city']))
-                user_cache[user_key] = None
-            count += 1
-            if count % BATCH_SIZE == 0 or count == total:
-                # Insert jobs
-                if jobs_to_insert:
-                    cursor.executemany('INSERT IGNORE INTO job (job_name) VALUES (%s)', jobs_to_insert)
-                    conn.commit()
-                    cursor.execute('SELECT job_id, job_name FROM job WHERE job_name IN (%s)' % ','.join(['%s']*len(jobs_to_insert)), [j[0] for j in jobs_to_insert])
-                    for job_id, job_name in cursor.fetchall():
-                        job_cache[job_name] = job_id
-                    jobs_to_insert.clear()
-                # Insert categories
-                if cats_to_insert:
-                    cursor.executemany('INSERT IGNORE INTO category (category_name) VALUES (%s)', cats_to_insert)
-                    conn.commit()
-                    cursor.execute('SELECT category_id, category_name FROM category WHERE category_name IN (%s)' % ','.join(['%s']*len(cats_to_insert)), [c[0] for c in cats_to_insert])
-                    for cat_id, cat_name in cursor.fetchall():
-                        category_cache[cat_name] = cat_id
-                    cats_to_insert.clear()
-                # Insert users
-                if users_to_insert:
-                    cursor.executemany('INSERT INTO user (first, last, gender, dob, city) VALUES (%s, %s, %s, %s, %s)', users_to_insert)
-                    conn.commit()
-                    cursor.execute('SELECT user_id, first, last, dob FROM user WHERE (first, last, dob) IN (%s)' % ','.join(['(%s,%s,%s)']*len(users_to_insert)), [item for u in users_to_insert for item in (u[0], u[1], u[3])])
-                    for user_id, first, last, dob in cursor.fetchall():
-                        user_cache[(first, last, str(dob))] = user_id
-                    users_to_insert.clear()
-                print(f"{int(count/total*100)}% complete ({count}/{total})")
-        # Second pass for transactions
-        csvfile.seek(0)
-        next(reader)
+            job = row['job'].strip()
+            if job and job not in jobs:
+                jobs[job] = job_id
+                job_id += 1
+            category = row['category'].strip()
+            if category and category not in categories:
+                categories[category] = category_id
+                category_id += 1
+            user_key = (row['first'].strip(), row['last'].strip(), row['dob'].strip())
+            if user_key not in users:
+                users[user_key] = {
+                    'id': user_id,
+                    'first_name': row['first'].strip(),
+                    'last_name': row['last'].strip(),
+                    'dob': row['dob'].strip(),
+                    'gender': row['gender'].strip(),
+                    'city': row['city'].strip(),
+                    'job': job,
+                    'creation_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'last_login_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                }
+                user_id += 1
+
+    # Insert jobs
+    job_items = [(jid, name) for name, jid in jobs.items()]
+    job_items.sort()
+    cursor.executemany('INSERT IGNORE INTO job (id, name) VALUES (%s, %s)', job_items)
+
+    # Insert categories
+    category_items = [(cid, name) for name, cid in categories.items()]
+    category_items.sort()
+    cursor.executemany('INSERT IGNORE INTO category (id, name) VALUES (%s, %s)', category_items)
+
+    # Insert users
+    user_batch = []
+    for user_key, user in users.items():
+        login_name = (user['first_name'].replace(' ', '') + user['last_name'].replace(' ', '')).lower()
+        password = hash_password(login_name)
+        job_id_fk = jobs.get(user['job'])
+        user_batch.append((user['id'], user['first_name'], user['last_name'], user['dob'], user['gender'], user['city'], job_id_fk, user['creation_time'], user['last_login_time'], login_name, password))
+    cursor.executemany('''INSERT IGNORE INTO user (id, first_name, last_name, dob, gender, city, job_id, creation_time, last_login_time, login_name, password) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''', user_batch)
+    cnx.commit()
+
+    # Second pass: load transactions
+    with open(CSV_FILE, newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        batch = []
         count = 0
+        total = 1296675  # from data/README.md
         for row in reader:
-            job_id = job_cache[row['job']]
-            cat_id = category_cache[row['category']]
-            user_id = user_cache[(row['first'], row['last'], row['dob'])]
-            trans_to_insert.append((row['trans_num'], row['amount'], row['trans_date'], row['trans_time'], cat_id, user_id, job_id))
+            user_key = (row['first'].strip(), row['last'].strip(), row['dob'].strip())
+            uid = users[user_key]['id']
+            cid = categories[row['category'].strip()]
+            amount = float(row['amount'])
+            trans_date = row['trans_date']
+            trans_time = row['trans_time']
+            trans_num = row['trans_num']
+            batch.append((trans_num, uid, cid, amount, trans_date, trans_time))
             count += 1
-            if count % BATCH_SIZE == 0 or count == total:
-                cursor.executemany('INSERT INTO transaction (trans_num, amount, trans_date, trans_time, category_id, user_id, job_id) VALUES (%s, %s, %s, %s, %s, %s, %s)', trans_to_insert)
-                conn.commit()
-                trans_to_insert.clear()
-                print(f"{int(count/total*100)}% complete ({count}/{total})")
+            if count % BATCH_SIZE == 0:
+                cursor.executemany('''INSERT IGNORE INTO transaction (trans_num, user_id, category_id, amount, trans_date, trans_time) VALUES (%s,%s,%s,%s,%s,%s)''', batch)
+                cnx.commit()
+                print(f"Loaded {count} records ({count*100//total}%)")
+                batch = []
+        if batch:
+            cursor.executemany('''INSERT IGNORE INTO transaction (trans_num, user_id, category_id, amount, trans_date, trans_time) VALUES (%s,%s,%s,%s,%s,%s)''', batch)
+            cnx.commit()
+            print(f"Loaded {count} records (100%)")
+
     cursor.close()
-    conn.close()
+    cnx.close()
+    print("Done.")
 
 if __name__ == '__main__':
     main()

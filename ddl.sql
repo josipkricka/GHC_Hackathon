@@ -1,46 +1,49 @@
--- DDL for genai database schema based on entities.md
-
+-- DDL for genai database
 CREATE DATABASE IF NOT EXISTS genai;
 USE genai;
 
--- User table
-CREATE TABLE IF NOT EXISTS user (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    first VARCHAR(64) NOT NULL,
-    last VARCHAR(64) NOT NULL,
-    gender CHAR(1),
-    dob DATE,
-    city VARCHAR(128),
-    creation_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    last_login_time DATETIME
-);
-CREATE INDEX idx_user_name ON user(first, last);
-
--- Job table
+-- Table: job
 CREATE TABLE IF NOT EXISTS job (
-    job_id INT AUTO_INCREMENT PRIMARY KEY,
-    job_name VARCHAR(128) UNIQUE NOT NULL
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
 );
 
--- Category table
+-- Table: category
 CREATE TABLE IF NOT EXISTS category (
-    category_id INT AUTO_INCREMENT PRIMARY KEY,
-    category_name VARCHAR(128) UNIQUE NOT NULL
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
 );
 
--- Transaction table
+-- Table: user
+CREATE TABLE IF NOT EXISTS user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    dob DATE NOT NULL,
+    gender CHAR(1) NOT NULL,
+    city VARCHAR(100),
+    job_id INT,
+    creation_time DATETIME,
+    last_login_time DATETIME,
+    login_name VARCHAR(200) NOT NULL UNIQUE,
+    password CHAR(64) NOT NULL,
+    FOREIGN KEY (job_id) REFERENCES job(id)
+);
+
+-- Table: transaction
 CREATE TABLE IF NOT EXISTS transaction (
-    trans_num CHAR(32) PRIMARY KEY,
-    amount DECIMAL(12,2) NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    trans_num VARCHAR(100) NOT NULL UNIQUE,
+    user_id INT NOT NULL,
+    category_id INT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
     trans_date DATE NOT NULL,
     trans_time TIME NOT NULL,
-    category_id INT,
-    user_id INT,
-    job_id INT,
-    FOREIGN KEY (category_id) REFERENCES category(category_id),
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
-    FOREIGN KEY (job_id) REFERENCES job(job_id)
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (category_id) REFERENCES category(id)
 );
-CREATE INDEX idx_transaction_user ON transaction(user_id);
-CREATE INDEX idx_transaction_category ON transaction(category_id);
-CREATE INDEX idx_transaction_job ON transaction(job_id);
+
+-- Indexes for performance
+CREATE INDEX idx_user_job_id ON user(job_id);
+CREATE INDEX idx_transaction_user_id ON transaction(user_id);
+CREATE INDEX idx_transaction_category_id ON transaction(category_id);
